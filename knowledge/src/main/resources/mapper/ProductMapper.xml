@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ixinnuo.financial.dao.mysql.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.ixinnuo.financial.model.Product" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_update" property="gmtUpdate" jdbcType="TIMESTAMP" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="guarantee_type_code" property="guaranteeTypeCode" jdbcType="VARCHAR" />
+    <result column="guarantee_type_name" property="guaranteeTypeName" jdbcType="VARCHAR" />
+    <result column="max_loan_amount" property="maxLoanAmount" jdbcType="DOUBLE" />
+    <result column="repayment_code" property="repaymentCode" jdbcType="VARCHAR" />
+    <result column="repayment_name" property="repaymentName" jdbcType="VARCHAR" />
+    <result column="repayment_term" property="repaymentTerm" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="VARCHAR" />
+    <result column="product_remark" property="productRemark" jdbcType="VARCHAR" />
+    <result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+    <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="bank_code" property="bankCode" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="access_template_id" property="accessTemplateId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ixinnuo.financial.model.Product" extends="BaseResultMap" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="product_detail" property="productDetail" jdbcType="LONGVARCHAR" />
+    <result column="apply_materials" property="applyMaterials" jdbcType="LONGVARCHAR" />
+    <result column="loan_agreement" property="loanAgreement" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, gmt_create, gmt_update, product_name, guarantee_type_code, guarantee_type_name, 
+    max_loan_amount, repayment_code, repayment_name, repayment_term, rate, product_remark, 
+    status_code, status_name, bank_code, bank_name, file_path, access_template_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    product_detail, apply_materials, loan_agreement
+  </sql>
+</mapper>
