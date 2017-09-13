@@ -12,7 +12,7 @@ import com.ixinnuo.financial.Application;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @DirtiesContext
-public class RedisTemplageDaoTest {
+public class RedisTemplateDaoTest {
 
     @Autowired
     public RedisTemplateDao redisTemplateDao;

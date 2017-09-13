@@ -10,10 +10,11 @@ package com.ixinnuo.financial.knowledge.rabbitmq.springboot.hello;
 
 import java.util.Calendar;
 
+import javax.annotation.Resource;
+
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * @author Gary Russell
@@ -24,7 +25,7 @@ public class Tut1Sender {
     @Autowired
     private RabbitTemplate template;
 
-    @Autowired
+    @Resource(name = "helloQueue")
     private Queue queue;
 
     /**

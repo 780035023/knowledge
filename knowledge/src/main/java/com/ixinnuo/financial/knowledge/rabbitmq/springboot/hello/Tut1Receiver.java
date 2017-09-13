@@ -9,7 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
  */
 public class Tut1Receiver {
 
-    @RabbitListener(queues = "hello")
+    @RabbitListener(queues = "helloQueue")
     public void receive(String in) {
         System.out.println(" [x] Received '" + in + "'");
     }

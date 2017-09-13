@@ -1,5 +1,7 @@
 package com.ixinnuo.financial.knowledge.rabbitmq.springboot.workqueue;
 
+import javax.annotation.Resource;
+
 /* Copyright 2015 the original author or authors. Licensed under the Apache
  * License, Version 2.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
@@ -12,7 +14,6 @@ package com.ixinnuo.financial.knowledge.rabbitmq.springboot.workqueue;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * @author Gary Russell
@@ -23,7 +24,7 @@ public class Tut2Sender {
     @Autowired
     private RabbitTemplate template;
 
-    @Autowired
+    @Resource(name="tut2Queue")
     private Queue queue;
 
 
