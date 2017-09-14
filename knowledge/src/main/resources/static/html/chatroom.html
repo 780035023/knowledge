@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chatroom.html</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/websocket/sockjs-client v1.1.4.js"></script>
+<script type="text/javascript" src="../js/websocket/stomp-1.7.1.js"></script>
+
+</head>
+
+<body>
+	<input name="nickname" placeholder="请输入您的昵称">
+	<input id="switchBtn" type="submit" value="进入" onclick="switchStatus()">
+	<div id="chatArea" style="height:300px;overflow:scroll;border:1px solid black;"></div>
+	<input name="msg" placeholder="不想说点什么吗..." readonly="readonly">
+	<input id="sendBtn" type="submit" value="发送" onclick="sendMsg()">
+</body>
+
+
+<script type="text/javascript">
+	var stompClient = null;
+	var nickname = null;
+	/*切换开关状态*/
+	function switchStatus() {
+		nickname = $("input[name='nickname']").val();
+		if ("" == nickname) {
+			alert("输入您的昵称");
+			return;
+		}
+		//进入
+		if (stompClient == null) {
+			enterRoom();
+			return;
+		}
+		//退出
+		if (stompClient != null) {
+			quitRoom();
+		}
+	}
+	/*进入*/
+	function enterRoom() {
+		//昵称置灰 按钮改为退出 输入框可用,可发送 
+		$("input[name='nickname']").attr("readonly", "readonly");
+		$("#switchBtn").val("退出");
+		$("input[name='msg']").removeAttr("readonly");
+		$("#sendBtn").removeAttr("readonly");
+		//连接服务器
+		var socket = new SockJS('/endpointSang');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame) {
+			console.log('Connected:' + frame);
+			//订阅频道
+			stompClient.subscribe('/topic/chatroom', function(response) {
+				$("#chatArea").append(JSON.parse(response.body).responseMessage + "<br/>");
+			})
+		});
+
+	}
+	/*退出*/
+	function quitRoom() {
+		//取消昵称置灰 按钮改为进入 输入框不可用,不可发送 
+		$("input[name='nickname']").removeAttr("readonly");
+		$("#switchBtn").val("进入");
+		$("input[name='msg']").attr("readonly", "readonly");
+		$("#sendBtn").attr("readonly", "readonly");
+		
+		stompClient.disconnect();
+		stompClient = null;
+	}
+	/*发送消息*/
+	function sendMsg() {
+		var msg = $("input[name='msg']").val();
+		if ("" == msg) {
+			return;
+		}
+		stompClient.send("/sendMsg", {}, JSON.stringify({
+			'name' : nickname + ':' + msg
+		}));
+	}
+</script>
+</html>

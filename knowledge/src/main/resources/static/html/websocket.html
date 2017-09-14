@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>websocket.html</title>
+
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<script type="text/javascript" src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/websocket/sockjs-client v1.1.4.js"></script>
+<script type="text/javascript" src="../js/websocket/stomp-1.7.1.js"></script>
+
+
+</head>
+
+<body onload="disconnect()">
+	<noscript>
+		<h2 style="color: #e80b0a;">Sorry，浏览器不支持WebSocket</h2>
+	</noscript>
+	<div>
+		<div>
+			<button id="connect" onclick="connect();">连接</button>
+			<button id="disconnect" disabled="disabled" onclick="disconnect();">断开连接</button>
+		</div>
+
+		<div id="conversationDiv">
+			<label>输入你的名字</label><input type="text" id="name" />
+			<button id="sendName" onclick="sendName();">发送</button>
+			<p id="response"></p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var stompClient = null;
+		function setConnected(connected) {
+			document.getElementById("connect").disabled = connected;
+			document.getElementById("disconnect").disabled = !connected;
+			document.getElementById("conversationDiv").style.visibility = connected ? 'visible' : 'hidden';
+			//        $("#connect").disabled = connected;
+			//        $("#disconnect").disabled = !connected;
+			$("#response").html();
+		}
+		function connect() {
+			//连接服务器
+			var socket = new SockJS('/endpointSang');
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, function(frame) {
+				setConnected(true);
+				console.log('Connected:' + frame);
+				//订阅频道
+				stompClient.subscribe('/topic/getResponse', function(response) {
+					showResponse(JSON.parse(response.body).responseMessage);
+				})
+			});
+		}
+		function disconnect() {
+			if (stompClient != null) {
+				stompClient.disconnect();
+			}
+			setConnected(false);
+			console.log('Disconnected');
+		}
+		function sendName() {
+			var name = $('#name').val();
+			console.log('name:' + name);
+			//向服务端发消息
+			stompClient.send("/welcome", {}, JSON.stringify({
+				'name' : name
+			}));
+		}
+		function showResponse(message) {
+			$("#response").html(message);
+		}
+	</script>
+</body>
+</html>

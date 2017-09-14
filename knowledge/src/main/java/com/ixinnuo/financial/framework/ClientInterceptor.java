@@ -28,7 +28,7 @@ public class ClientInterceptor implements HandlerInterceptor {
     static {
         //末尾带"/",则只包含下级所有资源；不带"/",包含本级和所有下级
         
-        //list.add("/");//放行所有
+        list.add("/");//放行所有
         // 测试
         list.add("/test/redirect");
         //swagger api
