@@ -1,4 +1,4 @@
-package com.ixinnuo.financial.conf;
+package com.ixinnuo.financial.knowledge.kaptcha;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
