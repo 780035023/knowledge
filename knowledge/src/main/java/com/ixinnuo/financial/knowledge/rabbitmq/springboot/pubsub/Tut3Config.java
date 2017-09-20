@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
  * @author Scott Deeg
  */
 @Configuration
+@Profile("no_start")
 public class Tut3Config {
 
     @Bean

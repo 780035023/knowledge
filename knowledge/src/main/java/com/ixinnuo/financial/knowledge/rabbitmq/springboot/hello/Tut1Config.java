@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Profile;
  * @author Wayne Lund
  */
 @Configuration
+@Profile("no_start")
 public class Tut1Config {
 
     @Bean(name = "helloQueue")
