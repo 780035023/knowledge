@@ -15,7 +15,17 @@ public class IndexController {
     @Value("${UUMS_LOGIN_URL}")
     public String UUMS_LOGIN_URL;
     
-    @RequestMapping("/home")
+    //静态资源加载配置文件的值
+    public static String staticProperty;
+    
+    @Value("${staticProperty}")
+    public void setStaticProperty(String staticProperty) {
+		IndexController.staticProperty = staticProperty;
+	}
+
+
+
+	@RequestMapping("/home")
     @ResponseBody
     public ReturnData home(){
         //获取uums登录地址
