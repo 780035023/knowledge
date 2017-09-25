@@ -19,6 +19,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -131,6 +132,45 @@ public class HttpClientUtils {
         logger.info("post result:{}",string);
         return string;
     }
+    
+    
+    /**
+	 * psot json
+	 * @param url
+	 * @param json
+	 * @param timeout 超时，单位毫秒
+	 * @return
+	 */
+	public static String requestByPostJson(String url, String json, int timeout) {
+		logger.info("post url:{};post json:{}", url, json);
+		HttpPost httpPost = new HttpPost(url);
+		StringEntity entity = new StringEntity(json, "utf-8");
+		// url格式编码
+		httpPost.setEntity(entity);
+		httpPost.addHeader("Content-Type","application/json");
+		Builder builder = RequestConfig.custom();
+		// 获取链接的时间 单位毫秒
+		builder.setConnectionRequestTimeout(timeout)
+				// 链接时间，从共享池获取链接
+				.setConnectTimeout(timeout)
+				// 读取数据时间
+				.setSocketTimeout(timeout);
+		httpPost.setConfig(builder.build());
+		String string = "";
+		try (CloseableHttpClient httpclient = HttpClients.createDefault();
+				CloseableHttpResponse response = httpclient.execute(httpPost)) {
+			HttpEntity responseEntity = response.getEntity();
+			if (responseEntity != null) {
+				string = EntityUtils.toString(responseEntity, "utf-8");
+			}
+		} catch (ClientProtocolException e) {
+			logger.error("httpclient异常", e);
+		} catch (IOException e) {
+			logger.error("httpclient异常", e);
+		}
+		logger.info("post result:{}", string);
+		return string;
+	}
 
     public static void main(String[] args) {
         String requestByget = requestByGet("http://www.baidu.com", 1000 * 5);
