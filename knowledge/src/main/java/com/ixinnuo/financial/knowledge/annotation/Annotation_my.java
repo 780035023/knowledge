@@ -1,4 +1,4 @@
-package com.ixinnuo.financial.util.annotation;
+package com.ixinnuo.financial.knowledge.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

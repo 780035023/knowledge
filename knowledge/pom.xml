@@ -80,7 +80,16 @@
 			<artifactId>druid</artifactId>
 			<version>1.0.31</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.5.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.10</version>
+		</dependency>
 
 
 		<!-- ******************************************************** 以下是关于httpclient 

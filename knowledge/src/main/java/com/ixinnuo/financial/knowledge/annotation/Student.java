@@ -1,4 +1,4 @@
-package com.ixinnuo.financial.util.annotation;
+package com.ixinnuo.financial.knowledge.annotation;
 
 @Annotation_my
 public class Student {

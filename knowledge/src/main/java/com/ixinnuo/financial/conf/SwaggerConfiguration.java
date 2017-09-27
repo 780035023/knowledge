@@ -30,7 +30,7 @@ public class SwaggerConfiguration {
                 DocumentationType.SWAGGER_2).select()
                         // 对所有api进行监控
                         .apis(RequestHandlerSelectors
-                                .basePackage("com.ixinnuo.financial.controller"))
+                                .basePackage("com.ixinnuo.financial"))
                         // 对所有路径进行监控
                         .paths(PathSelectors.any()).build();
     }
