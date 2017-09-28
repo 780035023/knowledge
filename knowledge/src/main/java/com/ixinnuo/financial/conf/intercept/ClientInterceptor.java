@@ -1,4 +1,4 @@
-package com.ixinnuo.financial.framework;
+package com.ixinnuo.financial.conf.intercept;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ixinnuo.financial.framework.SessionKey;
 
 /**
  * 权限拦截器
