@@ -6,23 +6,23 @@
 	http://code.alibabatech.com/schema/dubbo 
 	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<bean id="demoService" class="com.ixinnuo.financial.knowledge.dubbo.provider.DemoServiceImpl"/>
+	<bean id="demoService"
+		class="com.ixinnuo.financial.knowledge.dubbo.provider.DemoServiceImpl" />
 
 	<!-- 提供方应用信息，用于计算依赖关系 -->
-	<dubbo:application name="${dubbo.application.name1}" />
+	<dubbo:application name="${dubbo.application.name}" />
 
-	<!-- 注册中心暴露服务地址,可选的 -->
+	<!-- 注册中心暴露服务地址,可选的,不注册需要在dubbo:service 设置registry="N/A" -->
 	<!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
 
-	<!-- <dubbo:registry protocol="zookeeper" address="10.170.219.98:2181,10.173.55.173:2181" 
-		/> -->
-	<dubbo:registry protocol="${dubbo.registry.protocol}" 
-		address="${dubbo.registry.address}" />
+	<!-- <dubbo:registry protocol="zookeeper" address="10.170.219.98:2181,10.173.55.173:2181" /> -->
+		
+	<dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}"/> 
+		
 
-	<!-- 暴露服务 
-	dubbo://192.168.8.55:20880/com.ixinnuo.financial.knowledge.dubbo.DemoService?anyhost=true&application=example-provider&dubbo=2.5.5&generic=false&interface=com.ixinnuo.financial.knowledge.dubbo.DemoService&methods=sayHello&pid=27228&retries=0&side=provider&timeout=6000&timestamp=1506495093891
-	-->
-	<dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
+	<!-- 暴露服务 dubbo://192.168.8.55:20880/com.ixinnuo.financial.knowledge.dubbo.DemoService?anyhost=true&application=example-provider&dubbo=2.5.5&generic=false&interface=com.ixinnuo.financial.knowledge.dubbo.DemoService&methods=sayHello&pid=27228&retries=0&side=provider&timeout=6000&timestamp=1506495093891 -->
+	<dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"
+		accesslog="/logs/dubbo.log" />
 	<!-- 服务接口及实现类 -->
 	<dubbo:service interface="com.ixinnuo.financial.knowledge.dubbo.DemoService"
 		ref="demoService" retries="0" timeout="6000" />

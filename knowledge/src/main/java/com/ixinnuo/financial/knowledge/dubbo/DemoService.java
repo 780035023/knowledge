@@ -1,6 +1,8 @@
 package com.ixinnuo.financial.knowledge.dubbo;
 
-public interface DemoService {
+import java.io.Serializable;
+
+public interface DemoService extends Serializable{
 
 	String sayHello(String name);
 }
