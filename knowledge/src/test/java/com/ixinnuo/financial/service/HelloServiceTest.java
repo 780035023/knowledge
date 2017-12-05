@@ -34,4 +34,12 @@ public class HelloServiceTest {
         System.out.println(addOneAndSelectAll.get(addOneAndSelectAll.size()-1).getName());
     }
     
+	public static void main(String[] args) {
+		String a = "a";
+		String b = a;
+		a = "b";
+		System.out.println(b);
+		
+	}
+    
 }
