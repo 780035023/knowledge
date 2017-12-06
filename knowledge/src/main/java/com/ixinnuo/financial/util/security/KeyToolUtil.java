@@ -25,7 +25,8 @@ import sun.security.tools.keytool.Main;
  * 密钥和证书管理工具
  * 
  * @author aisino
- *
+ * 参考顺序
+ * MessageDigestUtil--》KeyToolUtil--》SignatureUtil--》CipherUtil
  */
 public class KeyToolUtil {
 
@@ -35,17 +36,17 @@ public class KeyToolUtil {
 		
 		//printAllCommand();
 		//printCommandHelp("export");
-		//生成密钥对,会提示输入密码，机构；域名liquanqiang.aisino.com来倒着填，按地址倒着填
-		//execCommand("-genkeypair -alias carl -keyalg RSA -keysize 1024 -validity 365 -keystore carl.keystore");
+		//生成密钥对,会提示输入密码，机构；域名liquanqiang.aisino.com来倒着填，按地址倒着填,keyalg 加解密用，sigalg 加签验签用,这两个算法要属于一个体系内
+		//execCommand("-genkeypair -alias carl1 -keyalg RSA -sigalg SHA1withRSA -keysize 1024 -validity 365 -keystore carl1.keystore");
 		//列出密钥库中的条目
-		//execCommand("-list -keystore carl.keystore");
+		//execCommand("-list -keystore carl1.keystore");
 		//从密钥库导出公钥到证书
-		//execCommand("-export -alias carl -file carl.crt -keystore carl.keystore");
+		//execCommand("-export -alias carl1 -file carl1.crt -keystore carl1.keystore");
 		//打印证书内容
-		//execCommand("-printcert -file carl.crt");
-		System.out.println(getStrFromKey(getPublicKeyFromCert(getCertFromKeyStore("JKS", "carl.keystore", "qq2476056494", "carl"))));
-		System.out.println(getStrFromKey(getPublicKeyFromCert(getCert("carl.crt"))));
-		System.out.println(getStrFromKey(getPrivateKeyFromKeyStore("JKS", "carl.keystore", "qq2476056494", "carl","qq2476056494")));
+		execCommand("-printcert -file carl1.crt");
+//		System.out.println(getStrFromKey(getPublicKeyFromCert(getCertFromKeyStore("JKS", "carl.keystore", "qq2476056494", "carl"))));
+//		System.out.println(getStrFromKey(getPublicKeyFromCert(getCert("carl.crt"))));
+//		System.out.println(getStrFromKey(getPrivateKeyFromKeyStore("JKS", "carl.keystore", "qq2476056494", "carl","qq2476056494")));
 	}
 	
 	/**
@@ -156,14 +157,13 @@ public class KeyToolUtil {
 		PublicKey publicKey = certificate.getPublicKey();
 		System.out.println("证书算法：" + x509Certificate.getSigAlgName());
 		System.out.println("公钥算法：" + publicKey.getAlgorithm());
-		//64位编码处理
 		return publicKey;
 	}
 	
  
 	/**
 	 * 获取密钥库中的私钥内容
-	 * @param keyStoreType 密钥库的条目类型，-list可以查看
+	 * @param keyStoreType 密钥库的条目类型，keytool -list可以查看
 	 * @param keyStorePath 密钥库的文件路径
 	 * @param keyStorePass 密钥库密码
 	 * @param alias 条目别名
@@ -180,8 +180,6 @@ public class KeyToolUtil {
 			keyStore.load(fis, keyStorePass.toCharArray());  
 			fis.close();  
 			PrivateKey privateKey = (PrivateKey) keyStore.getKey(alias, aliasPass.toCharArray());
-			System.out.println("私钥算法："+privateKey.getAlgorithm());
-			//64位编码处理
 			return privateKey;
 		} catch (KeyStoreException e) {
 			e.printStackTrace();
@@ -199,17 +197,22 @@ public class KeyToolUtil {
         return null;
 	}
 	
-	public static String getStrFromKey(Key privateKey){
+	/**
+	 * 从key获取密钥串
+	 * @param key
+	 * @return base64编码处理后的字符串
+	 */
+	public static String getStrFromKey(Key key){
 		//64位编码处理
-		return Base64.getEncoder().encodeToString(privateKey.getEncoded());
+		return Base64.getEncoder().encodeToString(key.getEncoded());
 	}
 	
 	
 	/**
 	 * 从字符串还原回key
-	 * @param encodedKey
-	 * @param algorithm
-	 * @return
+	 * @param encodedKey  base64编码处理后的字符串
+	 * @param algorithm 指定算法
+	 * @return 还原的key
 	 */
 	public static SecretKey getKeyFromStr(String encodedKey,String algorithm){
 		// decode the base64 encoded string
