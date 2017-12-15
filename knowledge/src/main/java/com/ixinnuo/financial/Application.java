@@ -31,8 +31,8 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @RequestMapping("/")
     String home() {
-        return "redirect:/swagger-ui.html";
-        //return "redirect:/html/index.html";
+       // return "redirect:/swagger-ui.html";
+        return "redirect:/html/index.html";
     }
     
 }
