@@ -8,9 +8,9 @@ import java.nio.channels.FileChannel.MapMode;
 import java.util.concurrent.CyclicBarrier;
 
 /**
- * 读取切分后的小文件
+ * 读取内存映射后的小文件
  * 
- * @author aisino
+ * @author 2476056494@qq.com
  *
  */
 public class SliceReaderTask implements Runnable {

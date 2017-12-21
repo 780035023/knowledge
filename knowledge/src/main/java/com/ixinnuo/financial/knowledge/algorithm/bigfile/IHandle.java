@@ -1,7 +1,7 @@
 package com.ixinnuo.financial.knowledge.algorithm.bigfile;
 /**
  * 回调接口
- * @author aisino
+ * @author 2476056494@qq.com
  *
  */
 public interface IHandle {

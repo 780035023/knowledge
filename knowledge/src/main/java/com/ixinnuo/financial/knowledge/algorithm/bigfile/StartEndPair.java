@@ -1,12 +1,18 @@
 package com.ixinnuo.financial.knowledge.algorithm.bigfile;
 
 /**
- * 小文件的开始结束位置，保证开始位置是行首，结束位置是行末尾
- * @author aisino
+ * 首尾索引对，均包含在内
+ * @author 2476056494@qq.com
  *
  */
 public class StartEndPair {
+	/**
+	 * 开始
+	 */
 	public long start;
+	/**
+	 * 结束
+	 */
 	public long end;
 
 	@Override

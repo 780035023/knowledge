@@ -1,7 +1,7 @@
 package com.ixinnuo.financial.knowledge.algorithm.bigfile;
 /**
  * 打印处理
- * @author aisino
+ * @author 2476056494@qq.com
  *
  */
 public class HandlePrint implements IHandle{

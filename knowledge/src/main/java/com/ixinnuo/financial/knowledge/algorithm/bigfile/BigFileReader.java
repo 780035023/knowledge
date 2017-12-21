@@ -10,14 +10,18 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
-
+/**
+ * 程序入口，读取大文件，映射到内存方式
+ * @author 2476056494@qq.com
+ *
+ */
 public class BigFileReader {
 	/**
 	 * 文件长度
 	 */
 	private static long fileLength;
 	/**
-	 * 文件片的开始结束位置集合
+	 * 文件片的首尾对集合
 	 */
 	private static Set<StartEndPair> startEndPairs = new HashSet<StartEndPair>();
 	/**
@@ -37,7 +41,7 @@ public class BigFileReader {
 		final long startTime = System.currentTimeMillis();
 		// 只需要4个参数
 		File file = new File("C:\\Users\\aisino\\Desktop\\temp\\word.txt");
-		int threadSize = 1;
+		int threadSize = 10;
 		int bufferSize = 1024 * 1024 * 2;
 		String charset = "UTF-8";
 		try {
@@ -64,11 +68,16 @@ public class BigFileReader {
 				System.out.println("切分小文件数为: " + startEndPairs.size());
 				System.out.println("总耗时毫秒: " + (System.currentTimeMillis() - startTime));
 				System.out.println("文件总行数: " + counter.get());
+				//调用统计频率
+				BigFileFrequency.main(new String[]{file.getAbsolutePath()});
 			}
 		});
 		// 每一个小文件开启一个线程
-		ExecutorService executorService = Executors.newFixedThreadPool(threadSize);
-		IHandle handle = new HandlePrint();
+		ExecutorService executorService = Executors.newFixedThreadPool(threadSize+1);
+		//IHandle handle = new HandlePrint();
+		HandleHash handle = new HandleHash();
+		handle.bigFile = file;
+		handle.divisor = 2000;//对2000模运算，会有最多4000个文件，结果有正负数
 		for (StartEndPair pair : startEndPairs) {
 			System.out.println("分配分片：" + pair);
 			// 只读模式
