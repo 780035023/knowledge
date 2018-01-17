@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<note xmlns="http://www.example.org/note">
+	<to>to</to>
+	<from>from</from>
+	<header>
+		<ver></ver>
+		<title></title>
+	</header>
+	<body>body</body>
+</note>

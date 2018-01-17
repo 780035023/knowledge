@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<!-- 【1】两个元素table的 定义不同，导致冲突 -->
+<root>
+	<table>
+		<tr>
+			<td>Apples</td>
+			<td>Bananas</td>
+		</tr>
+	</table>
+	<table>
+		<name>African Coffee Table</name>
+		<width>80</width>
+		<length>120</length>
+	</table>
+
+	<!-- 【2】XML 命名空间提供避免元素命名冲突的方法</br>命名空间是在元素的开始标签的 xmlns 属性中定义的;语法为【xmlns:前缀="URI"】 -->
+	<h:table xmlns:h="http://www.w3.org/TR/html4/">
+		<h:tr>
+			<h:td>Apples</h:td>
+			<h:td>Bananas</h:td>
+		</h:tr>
+	</h:table>
+
+	<f:table xmlns:f="http://www.w3cschool.cc/furniture">
+		<f:name>African Coffee Table</f:name>
+		<f:width>80</f:width>
+		<f:length>120</f:length>
+	</f:table>
+	<!-- 【3】命名空间的另一种声明方式【在 XML 根元素中声明】 -->
+	<root xmlns:h="http://www.w3.org/TR/html4/" xmlns:f="http://www.w3cschool.cc/furniture">
+		<h:table>
+			<h:tr>
+				<h:td>Apples</h:td>
+				<h:td>Bananas</h:td>
+			</h:tr>
+		</h:table>
+
+		<f:table>
+			<f:name>African Coffee Table</f:name>
+			<f:width>80</f:width>
+			<f:length>120</f:length>
+		</f:table>
+	</root>
+	<!-- 【4】默认的命名空间</br>为元素定义默认的命名空间可以让我们省去在所有的子元素中使用前缀的工作。它的语法如下：【xmlns="namespaceURI"】 -->
+	<table xmlns="http://www.w3.org/TR/html4/">
+		<tr>
+			<td>Apples</td>
+			<td>Bananas</td>
+		</tr>
+	</table>
+	<table xmlns="http://www.w3schools.com/furniture">
+		<name>African Coffee Table</name>
+		<width>80</width>
+		<length>120</length>
+	</table>
+
+</root>

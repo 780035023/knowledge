@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/note"
+	xmlns:tns="http://www.example.org/note" elementFormDefault="qualified">
+	<!-- 【1】xmlns="http://www.w3.org/2001/XMLSchema" 表示此xsd中使用的元素标签element,complexType和数据类型来自命名空间“URI”,同时规定了此命名空间为默认空间，不使用前缀 -->
+	<!-- 【2】targetNamespace="http://www.example.org/note" 表示此xsd中定义的元素（name值：note，to等）来自命名空间“URI” -->
+	<!-- 【3】 xmlns:tns="http://www.example.org/note" 表示此“URI”对应的命名空间需要使用前缀tns -->
+	<!-- 【4】 elementFormDefault="qualified/unqualified 指出任何 XML文档所使用的且在此 schema 
+		中定义过的元素必须/无须被命名空间限定" -->
+
+	<element name="note">
+		<complexType>
+			<sequence>
+				<element name="to" type="string"></element>
+				<element name="from" type="string"></element>
+				<element name="header" type="tns:Header"></element>
+				<element name="body" type="string"></element>
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="Header">
+		<sequence>
+			<element name="ver" type="string"></element>
+			<element name="title" type="string"></element>
+		</sequence>
+	</complexType>
+</schema>
