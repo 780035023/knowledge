@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/my"
+	xmlns:tns="http://www.example.org/my" elementFormDefault="qualified">
+	<annotation>
+		<documentation xml:lang="cn">我的schema</documentation>
+	</annotation>
+	<element name="my">
+		<complexType>
+			<sequence>
+				<!-- 【1】简易元素和数据类型,出现次数默认为1，不限制出现次数maxOccurs="unbounded" -->
+				<element name="integer" type="integer" default="1"
+					minOccurs="2" maxOccurs="unbounded" />
+				<element name="string" type="string" />
+				<element name="decimal" type="decimal" />
+				<element name="boolean" type="boolean" fixed="true" />
+				<element name="date" type="date" />
+				<element name="time" type="time"></element>
+				<element name="simpleType" type="tns:simpleType"></element>
+				<element name="simpleContent" type="tns:simpleContent"></element>
+				<element name="complexType" type="tns:complexType"></element>
+			</sequence>
+		</complexType>
+	</element>
+	<!-- 【2】简单类型，对基本数据加以约束,只能有一种约束 -->
+	<simpleType name="simpleType">
+		<restriction base="integer">
+			<minInclusive value="0" />
+			<maxInclusive value="120" />
+		</restriction>
+	</simpleType>
+
+	<!-- 【3】复合类型，只有复合类型才可以拥有属性 -->
+	<complexType name="complexType">
+		<all>
+			<element name="ver" type="string"></element>
+			<element name="title" type="string"></element>
+		</all>
+		<attribute name="attribute" type="string" use="required" />
+	</complexType>
+	<!-- 【4】simpleContent只能出现在复合元素内，是简易元素的内容扩展 -->
+	<complexType name="simpleContent">
+		<simpleContent>
+			<extension base="tns:simpleType">
+				<attribute name="extensionAttri" use="required">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="boy" />
+							<enumeration value="girl" />
+						</restriction>
+					</simpleType>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<!-- 【5】complexContent只能出现在复合元素内，是复合元素的内容扩展 -->
+	<complexType name="complexContent">
+		<complexContent>
+			<extension base="tns:complexType"></extension>
+		</complexContent>
+	</complexType>
+</schema>
