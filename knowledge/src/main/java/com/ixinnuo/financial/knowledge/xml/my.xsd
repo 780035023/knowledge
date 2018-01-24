@@ -19,6 +19,7 @@
 				<element name="simpleType" type="tns:simpleType"></element>
 				<element name="simpleContent" type="tns:simpleContent"></element>
 				<element name="complexType" type="tns:complexType"></element>
+				<element name="all" type="tns:all"></element>
 			</sequence>
 		</complexType>
 	</element>
@@ -58,5 +59,19 @@
 		<complexContent>
 			<extension base="tns:complexType"></extension>
 		</complexContent>
+	</complexType>
+	<!-- 【6】all限制内部元素乱序的，但是元素必须且只能出现一次；如果要限制子元素出现0次，必须在内部元素上加minOccurs="0" -->
+	<complexType name="all">
+		<all>
+			<element name="firstname" type="string" minOccurs="0"></element>
+			<!-- 【7】限制必输项 -->
+			<element name="lastname">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+					</restriction>
+				</simpleType>
+			</element>
+		</all>
 	</complexType>
 </schema>

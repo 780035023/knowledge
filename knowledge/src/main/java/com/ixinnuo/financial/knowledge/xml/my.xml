@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:my xmlns:tns="http://www.example.org/my" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/my my.xsd ">
-  <tns:integer>1</tns:integer>
-  <tns:integer>1</tns:integer>
-  <tns:string>tns:string</tns:string>
-  <tns:decimal>0.0</tns:decimal>
-  <tns:boolean>true</tns:boolean>
-  <tns:date>2001-01-01</tns:date>
-  <tns:time>12:00:00</tns:time>
-  <tns:simpleType>0</tns:simpleType>
-  <tns:simpleContent extensionAttri="boy">0</tns:simpleContent>
-  <tns:complexType attribute="">
-    <tns:ver>tns:ver</tns:ver>
-    <tns:title>tns:title</tns:title>
-  </tns:complexType>
+<tns:my xmlns:tns="http://www.example.org/my" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/my my.xsd ">
+	<tns:integer>1</tns:integer>
+	<tns:integer>1</tns:integer>
+	<tns:string>tns:string</tns:string>
+	<tns:decimal>0.0</tns:decimal>
+	<tns:boolean>true</tns:boolean>
+	<tns:date>2001-01-01</tns:date>
+	<tns:time>12:00:00</tns:time>
+	<tns:simpleType>0</tns:simpleType>
+	<tns:simpleContent extensionAttri="boy">0</tns:simpleContent>
+	<tns:complexType attribute="">
+		<tns:ver>tns:ver</tns:ver>
+		<tns:title>tns:title</tns:title>
+	</tns:complexType>
+	<tns:all>
+	<tns:lastname>a</tns:lastname>
+	</tns:all>
 </tns:my>
