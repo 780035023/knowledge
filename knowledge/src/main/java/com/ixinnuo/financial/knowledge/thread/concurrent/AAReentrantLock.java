@@ -2,7 +2,13 @@ package com.ixinnuo.financial.knowledge.thread.concurrent;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
-
+/**
+ * 重入锁与synchronized区别
+ * 1.重入锁需要显示的加锁和释放,即由jdk实现；synchronized关键字，由jvm虚拟机实现
+ * 2.重入锁支持公平锁，排队，synchronized是不公平锁
+ * @author 2476056494@qq.com
+ *
+ */
 public class AAReentrantLock {
 	
 	public static void main(String[] args) {
