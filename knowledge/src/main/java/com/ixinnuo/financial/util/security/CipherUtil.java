@@ -270,7 +270,7 @@ public class CipherUtil {
 			//FIXME 此处不能使用update
 			byte[] doFinal = instance.doFinal(encryptMsgBytes);
 			//去除填充的0,倒数第一个不为0的位置，copy到另一个数组
-			int zeroIndex = 0;
+			int zeroIndex = doFinal.length;
 			for (int i = doFinal.length-1; i > 0; i--) {
 				if(doFinal[i] == (byte)0){
 					zeroIndex = i;
