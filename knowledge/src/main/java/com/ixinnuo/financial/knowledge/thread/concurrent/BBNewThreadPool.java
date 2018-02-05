@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author 2476056494@qq.com
  *
  */
-public class BBFixedThreadPool {
+public class BBNewThreadPool {
 
 	public static void main(String[] args) {
 		//核心线程数量
