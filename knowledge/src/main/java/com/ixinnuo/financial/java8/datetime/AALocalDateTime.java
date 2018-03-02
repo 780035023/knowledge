@@ -1,10 +1,16 @@
 package com.ixinnuo.financial.java8.datetime;
 
+import java.time.DayOfWeek;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalUnit;
 
 public class AALocalDateTime {
@@ -13,6 +19,12 @@ public class AALocalDateTime {
 		// 获取本地当前时间
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println("获取本地当前时间 " + now);
+		OffsetDateTime offdt = OffsetDateTime.now();
+		System.out.println("获取本地当前时间带时间偏移量 " + offdt);
+		ZonedDateTime zonednow = ZonedDateTime.now();
+		System.out.println("获取本地当前时间带时区 " + zonednow);
+		
+		
 		// 获取指定时间,注意月份是从1-12，小时0-23，分钟，秒0-59
 		LocalDateTime instance = LocalDateTime.of(2018, 2, 27, 10, 0, 59);
 		System.out.println("设置指定时间 " + instance);
@@ -44,17 +56,36 @@ public class AALocalDateTime {
 		LocalDateTime plusMonths = now.plusMonths(1);
 		System.out.println("日期增加1月 " + plusMonths);
 		// 两个日期间隔，只返回单位的整数部分，小数忽略
-		TemporalUnit DAYS = ChronoField.DAY_OF_YEAR.getBaseUnit();
+		TemporalUnit DAYS = ChronoUnit.DAYS;
 		long days = now.until(instance, DAYS);
 		System.out.println(now + " 到 " + instance + " 相差 " + days + " 天");
-		TemporalUnit HOURS = ChronoField.HOUR_OF_DAY.getBaseUnit();
+		TemporalUnit HOURS = ChronoUnit.HOURS;
 		long hours = now.until(instance, HOURS);
 		System.out.println(now + " 到 " + instance + " 相差 " + hours + " 小时");
 		//计算年龄
 		LocalDate birthday = LocalDate.of(1985, 12, 23);
-		TemporalUnit YEARS = ChronoField.YEAR.getBaseUnit();
+		TemporalUnit YEARS = ChronoUnit.YEARS;
 		long year = birthday.until(now, YEARS);
 		System.out.println("周岁 " + year);
+		
+		
+		LocalDateTime withDayOfMonth = now.withDayOfMonth(5);
+		System.out.println("日期所处月份的第5天 " + withDayOfMonth);
+		LocalDateTime with = now.with(TemporalAdjusters.lastDayOfMonth());
+		System.out.println("日期所处月份的最后1天 " + with);
+		LocalDateTime monday = now.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
+		System.out.println("日期所处月份的第1个周一 " + monday);
+		//时间偏移量,中国东8区，偏移量为正8个小时
+		ZoneOffset zoneOffset = ZoneOffset.of("+08:00");
+		//本地时间转成瞬时，确定时区偏移量，最后转毫秒
+		long milli = now.toInstant(zoneOffset).toEpochMilli();
+		System.out.println(now + " 转毫秒 " + milli);
+		//毫秒转瞬时，再确定时区偏移量，最后转本地时间
+		LocalDateTime localDateTime = Instant.ofEpochMilli(milli).atOffset(zoneOffset).toLocalDateTime();
+		System.out.println(milli + " 转日期 " + localDateTime);
+		
+		
+		
 	}
 
 }
