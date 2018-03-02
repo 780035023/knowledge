@@ -62,7 +62,7 @@ public class BCExecThreadPool {
 		// 【2】提交40个任务，观察任务的执行时间和线程name
 		for (int i = 0; i < 20; i++) {
 			Task task = new Task();
-			//【3】这里只能用execute，不能用submit，否则beforeExecute的Runnable看不出来是原始提交的Task
+			//【3】这里只能用execute马上执行，不能用submit系统决定，否则beforeExecute的Runnable看不出来是原始提交的Task
 			executorService.execute(task);
 		}
 		//【4】发送线程池关闭信号，等待线程都执行完毕之后再关闭，非阻塞，后面正常执行，但是不能再添加任务
