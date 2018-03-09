@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 自定义线程池, LinkedBlockingQueue 无界阻塞队列，使用的节点，node实现 ArrayBlockingQueue
- * 有界阻塞队列，使用的数组，所以必须定长
+ * 自定义线程池, LinkedBlockingQueue 无界阻塞队列，使用的节点，node实现<hr></br>
+ *  ArrayBlockingQueue有界阻塞队列，使用的数组，所以必须定长
  * 
  * @author 2476056494@qq.com
  *
@@ -19,15 +19,17 @@ import java.util.concurrent.TimeUnit;
 public class BBNewThreadPool {
 
 	/**
-	 * 创建线程池
-	 * @param corePoolSize 固定线程池大小，最大线程数为其2倍，阻塞队列长度为其3倍，所以最大处理能力为5倍corePoolSize，超过将会拒绝
+	 * 创建线程池 ，最大线程是可用cpu+1
+	 * @param capacity 队列的大小限制
 	 * @return
 	 */
-	public static ExecutorService newThreadPool(int corePoolSize) {
-		// 核心线程数量
-		// int corePoolSize = 2;
-		// 最大线程数量
-		int maximumPoolSize = 2 * corePoolSize;
+	public static ExecutorService newThreadPool(int capacity) {
+		//可用的cpu
+		int availableProcessors = Runtime.getRuntime().availableProcessors();
+		// 核心线程数量，保证有一个
+		int corePoolSize = availableProcessors/2 + 1;
+		// 最大线程数量 最大cpu个数加1
+		int maximumPoolSize = availableProcessors + 1;
 		// (maximumPoolSize-corePoolSize) 线程的空间时间
 		long keepAliveTime = 0L;
 		// keepAliveTime 单位
