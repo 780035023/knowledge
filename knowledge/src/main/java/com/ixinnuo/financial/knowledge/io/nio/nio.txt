@@ -1,0 +1,31 @@
+Channel 和 Buffer
+参考  http://ifeve.com/buffers/
+基本上，所有的 IO 在NIO 中都从一个Channel 开始。Channel 有点象流。 
+数据可以从Channel读到Buffer中，也可以从Buffer 写到Channel中。
+文件--》channel--》buffer【读文件内容到缓冲区read】
+文件《--channel《--buffer【把缓冲区内容写到文件wirte】
+
+Buffer的capacity,position和limit
+缓冲区本质上是一块可以读写数据的内存，这块内存被包装成NIO Buffer对象，
+并提供了一组方法，用来方便的访问该块内存。
+为了理解Buffer的工作原理，需要熟悉它的三个属性：
+capacity表示Buffer有一个固定的大小值，ByteBuffer.allocate(48)最大写入48个字节
+position操作数据的索引位置，不论读写起始位置都是0，最大位置到capacity-1
+limit 当切换读写模式时flip(),limit将指向当前position，然后position指向0
+
+Buffer的基本操作
+buf.get 读取缓冲区内容
+buf.put 写入缓存区内容
+flip()切换读写模式
+rewind position移到位置0，可重复读取
+clear 清除所有数据和标志
+compact() 清除数据，未读取数据保留并移到开始位置
+
+
+Selector
+Selector允许单线程处理多个 Channel。如果你的应用打开了多个连接（通道），
+但每个连接的流量都很低，使用Selector就会很方便。例如，在一个聊天服务器中。
+要使用Selector，得向Selector注册Channel，然后调用它的select()方法。
+这个方法会一直阻塞到某个注册的通道有事件就绪。
+一旦这个方法返回，线程就可以处理这些事件，事件的例子有如新连接进来，数据接收等。
+
