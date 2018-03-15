@@ -3,6 +3,7 @@ package com.ixinnuo.financial.knowledge.datasort;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,6 +13,13 @@ import java.util.List;
  * 双向链表，节点含有元素和分别指向前一个后一个元素的链<br><hr>
  * ArrayList是可增长数组实现，get和set效率高，add和remove效率低，除非在末尾<br>
  * linkedList是双向链表，add和remove效率高，不容索引，get效率低
+ * <br><hr>
+ * 桟 是一种表结构，插入和删除只能在表的末端（栈顶）进行<br>
+ * LinkedList的addLast和removeLast就是对桟的支持<br>
+ * 应用：计算器的后缀表达式，数入栈，符号出桟两个数运算，结果入栈<br>
+ *  <br><hr>
+ * 队列 是一种表结构，插入和删除分别在两端（队尾和队首）进行<br>
+ * LinkedList的addLast和removeLast就是对桟的支持<br>
  * @author 2476056494@qq.com
  *
  */
@@ -27,6 +35,7 @@ public class DataTable {
 			//观察UnsupportedOperationException异常
 			Iterator<Integer> iterator = asList.iterator();
 			iteratorWithSub(asList,50);
+			//
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
