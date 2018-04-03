@@ -28,6 +28,19 @@ public class SimpleApp {
 
 	private String protocol = "jdbc:derby:";
 	private String uri = "//localhost:1527/";
+	
+
+	/*
+	 * By default, the schema APP will be used when no username is
+	 * provided. Otherwise, the schema name is the same as the user name
+	 * (in this case "user1" or USER1.)
+	 *
+	 * Note that user authentication is off by default, meaning that any
+	 * user can connect to your database using any password. To enable
+	 * authentication, see the Derby Developer's Guide.
+	 */
+
+	String dbName = "derbyDB"; // the name of the database
 
 	public static void main(String[] args) {
 		new SimpleApp().go(args);
@@ -63,17 +76,6 @@ public class SimpleApp {
 			props.put("user", "user1");
 			props.put("password", "user1");
 
-			/*
-			 * By default, the schema APP will be used when no username is
-			 * provided. Otherwise, the schema name is the same as the user name
-			 * (in this case "user1" or USER1.)
-			 *
-			 * Note that user authentication is off by default, meaning that any
-			 * user can connect to your database using any password. To enable
-			 * authentication, see the Derby Developer's Guide.
-			 */
-
-			String dbName = "derbyDB"; // the name of the database
 
 			/*
 			 * This connection specifies create=true in the connection URL to

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 抽象数据类型（abstract data type） ADT 表结构:<br>
@@ -16,6 +17,7 @@ import java.util.List;
  * <br><hr>
  * 桟 是一种表结构，插入和删除只能在表的末端（栈顶）进行<br>
  * LinkedList的addLast和removeLast就是对桟的支持<br>
+ * {@link Stack}jdk实现的桟，push压入栈顶，pop返回栈顶数据，并移除 <br>
  * 应用：计算器的后缀表达式，数入栈，符号出桟两个数运算，结果入栈<br>
  *  <br><hr>
  * 队列 是一种表结构，插入和删除分别在两端（队尾和队首）进行<br>
