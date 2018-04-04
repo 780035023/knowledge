@@ -142,6 +142,12 @@ public class DataTree<T extends Comparable<T>> {
 		return root;
 	}
 
+	/**
+	 * 插入，非递归实现
+	 * @param element
+	 * @param root
+	 * @return
+	 */
 	public BinaryNode<T> insert2(T element, BinaryNode<T> root) {
 		Stack<BinaryNode<T>> stack = new Stack<DataTree.BinaryNode<T>>();
 		BinaryNode<T> binaryNode = new BinaryNode<T>(element);
@@ -235,7 +241,7 @@ public class DataTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * 中序遍历，<br>
+	 * 中序遍历，从小到大<br>
 	 * 左孩子 - 根结点 - 右孩子<br>
 	 * 访问任意一节点p，若其左孩子非空，p入栈，且p的左孩子作为当前节点，然后在对其进行同样的处理<br>
 	 * 若其左孩子为空，则输出栈顶点元素并进行出栈操作，访问该栈顶的节点的右孩子 直到p为null并且栈为空则遍历结束
