@@ -17,7 +17,12 @@ import org.apache.commons.lang.math.RandomUtils;
  * <p>
  * 二叉查找数，适用范围查找，查最小-最大<br>
  * 树中的每个节点，左子树所有项比它小，右子树所有项比它大，比较接口comparable<br>
- * 查找的时间复杂度O(logN)
+ * 查找的时间复杂度O(logN)<br>
+ * 二叉查找数的性质<br>
+ * 1.左子树都比节点小<br>
+ * 2.右子树都比节点大<br>
+ * 3.左右子树分别为二叉树<br>
+ * 4.没有相等的节点<br>
  * <p>
  * 
  * @author 2476056494@qq.com
@@ -27,7 +32,7 @@ import org.apache.commons.lang.math.RandomUtils;
 public class DataTree<T extends Comparable<T>> {
 
 	/**
-	 * 表示一个二叉查找数的节点
+	 * 表示一个二叉查找数的节点，应该是key，value形式，key是排序的，value存储，这里直接用value
 	 * 
 	 * @author 2476056494@qq.com
 	 *
