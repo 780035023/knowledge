@@ -19,6 +19,7 @@ import java.util.List;
  * 如何集合有4个元素，取出其中的两个有序元素个数为C(3,2)=3<br>
  * 
  * @author 2476056494@qq.com
+ * https://blog.csdn.net/leixingbang1989/article/details/47761171
  *
  */
 public class ZAPailie {
