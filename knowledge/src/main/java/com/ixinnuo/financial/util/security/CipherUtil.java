@@ -16,9 +16,12 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * 公钥加密，私钥解密 证书算法： x509Certificate.getSigAlgName() 用来加签/验签 keytool -genkeypair
- * -sigalg SHA1withRSA 密钥算法：key.getAlgorithm() 用来加密/解密 创建密钥对的时候指定的 keytool
- * -genkeypair -keyalg RSA
+ * 公钥加密，私钥解密
+ * <p>
+ * 证书算法： x509Certificate.getSigAlgName() 用来加签/验签 <br>
+ * keytool -genkeypair -sigalg SHA1withRSA <br>
+ * 密钥算法：key.getAlgorithm() 用来加密/解密 创建密钥对的时候指定的 <br>
+ * keytool -genkeypair -keyalg RSA<br>
  * 
  * @author aisino 参考顺序
  *         MessageDigestUtil--》KeyToolUtil--》SignatureUtil--》CipherUtil
@@ -150,26 +153,29 @@ public class CipherUtil {
 			for (int i = 0; i < msgBytes.length; i++) {
 				System.out.print(msgBytes[i] + "\t");
 			}
-			//FIXME 此处不能使用update
+			// FIXME 此处不能使用update
 			byte[] doFinal = c1.doFinal(msgBytes);
 			System.out.println("\n加密后的字节如下：");
 			for (int i = 0; i < doFinal.length; i++) {
 				System.out.print(doFinal[i] + "\t");
 			}
 			return Base64.getEncoder().encodeToString(doFinal);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 3des ecb 0填充，利用NoPading，自行补0
-	 * @param key 密钥串，必须为24长度字符串
-	 * @param msg 消息
+	 * 
+	 * @param key
+	 *            密钥串，必须为24长度字符串
+	 * @param msg
+	 *            消息
 	 * @return Base64编码后的字符串
 	 */
-	public static String encryptWithDESCEBZeroPading(String key,String msg) {
+	public static String encryptWithDESCEBZeroPading(String key, String msg) {
 		try {
 			// 生成密钥
 			byte[] bytes = key.getBytes(CHARSET_UTF8);
@@ -184,24 +190,24 @@ public class CipherUtil {
 			for (int i = 0; i < msgBytes.length; i++) {
 				System.out.print(msgBytes[i] + "\t");
 			}
-			//FIXME 自行补位，达到8字节的倍数
+			// FIXME 自行补位，达到8字节的倍数
 			int remainder = msgBytes.length % 8;
-			if(0 != remainder){
+			if (0 != remainder) {
 				int oldLength = msgBytes.length;
-				//1.扩展自身长度
-				msgBytes = Arrays.copyOf(msgBytes, msgBytes.length + 8-remainder);
-				//2.填充扩展内容为0
-				Arrays.fill(msgBytes, oldLength, msgBytes.length, (byte)0);
-				
+				// 1.扩展自身长度
+				msgBytes = Arrays.copyOf(msgBytes, msgBytes.length + 8 - remainder);
+				// 2.填充扩展内容为0
+				Arrays.fill(msgBytes, oldLength, msgBytes.length, (byte) 0);
+
 			}
-			//FIXME 此处不能使用update,自行补位，
+			// FIXME 此处不能使用update,自行补位，
 			byte[] doFinal = c1.doFinal(msgBytes);
 			System.out.println("\n加密后的字节如下：");
 			for (int i = 0; i < doFinal.length; i++) {
 				System.out.print(doFinal[i] + "\t");
 			}
 			return Base64.getEncoder().encodeToString(doFinal);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -224,7 +230,7 @@ public class CipherUtil {
 			byte[] bytes = key.getBytes(CHARSET_UTF8);
 			System.out.println("密钥字节长度：" + bytes.length);
 			SecretKey deskey = new SecretKeySpec(bytes, Algorithm);
-			//初始工具
+			// 初始工具
 			Cipher instance = Cipher.getInstance(Algorithm);
 			// DECRYPT_MODE 解密模式
 			instance.init(Cipher.DECRYPT_MODE, deskey);
@@ -233,32 +239,35 @@ public class CipherUtil {
 			for (int i = 0; i < encryptMsgBytes.length; i++) {
 				System.out.print(encryptMsgBytes[i] + "\t");
 			}
-			//FIXME 此处不能使用update
+			// FIXME 此处不能使用update
 			byte[] doFinal = instance.doFinal(encryptMsgBytes);
 			System.out.println("\n解密后的字节为如下：");
 			for (int i = 0; i < doFinal.length; i++) {
 				System.out.print(doFinal[i] + "\t");
 			}
 			return new String(doFinal, CHARSET_UTF8);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 3des ecb 0填充，解密；利用NoPading，自行去除填充的0
-	 * @param key 密钥字符串，必须是24长度
-	 * @param encryptMsg base64的密文
+	 * 
+	 * @param key
+	 *            密钥字符串，必须是24长度
+	 * @param encryptMsg
+	 *            base64的密文
 	 * @return
 	 */
-	public static String decryptWithDESCEBZeroPading(String key,String encryptMsg) {
+	public static String decryptWithDESCEBZeroPading(String key, String encryptMsg) {
 		try {
 			// 生成密钥
 			byte[] bytes = key.getBytes(CHARSET_UTF8);
 			System.out.println("密钥字节长度：" + bytes.length);
 			SecretKey deskey = new SecretKeySpec(bytes, "DESede");
-			//初始工具
+			// 初始工具
 			Cipher instance = Cipher.getInstance("DESede/ECB/NoPadding");
 			// DECRYPT_MODE 解密模式
 			instance.init(Cipher.DECRYPT_MODE, deskey);
@@ -267,14 +276,14 @@ public class CipherUtil {
 			for (int i = 0; i < encryptMsgBytes.length; i++) {
 				System.out.print(encryptMsgBytes[i] + "\t");
 			}
-			//FIXME 此处不能使用update
+			// FIXME 此处不能使用update
 			byte[] doFinal = instance.doFinal(encryptMsgBytes);
-			//去除填充的0,倒数第一个不为0的位置，copy到另一个数组
+			// 去除填充的0,倒数第一个不为0的位置，copy到另一个数组
 			int zeroIndex = doFinal.length;
-			for (int i = doFinal.length-1; i > 0; i--) {
-				if(doFinal[i] == (byte)0){
+			for (int i = doFinal.length - 1; i > 0; i--) {
+				if (doFinal[i] == (byte) 0) {
 					zeroIndex = i;
-				}else{
+				} else {
 					break;
 				}
 			}
@@ -284,7 +293,7 @@ public class CipherUtil {
 				System.out.print(doFinal[i] + "\t");
 			}
 			return new String(doFinal, CHARSET_UTF8);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

@@ -9,6 +9,11 @@ import java.util.Arrays;
  * <p>
  * 不稳定，在已经排序好的情况下较快，一次只能移动一个
  * https://visualgo.net/zh/sorting
+ * 选择排序和插入排序的区别
+ * 选择排序是在未排序当中找到最小的，追加到已排序后面
+ * 插入排序是在已排序当中找到比未排序小的数，插入到这个值后面，同时后面的已排序数据向后平移
+ * 选择排序和插入排序的相同点
+ * 都是把第一个元素当成已排序的
  * 
  * @author 2476056494@qq.com
  *
@@ -21,21 +26,21 @@ public class SortABInsert<T extends Comparable<T>> {
 	 * @param array
 	 */
 	void insertSort(T[] array) {
-		// 第一个元素标记为排序的，从第二个开始
+		// 从第二个开始未排序的
 		for (int i = 1; i < array.length; i++) {
+			//记录下这个值，后面移动时，会被覆盖
 			T tmp = array[i];
-			// 向前开始找
-			int j = i;
-			for (; j > 0; j--) {
-				if (tmp.compareTo(array[j - 1]) < 0) {
+			int j;
+			for (j = i; j > 0; j--) {
+				if (tmp.compareTo(array[j-1]) < 0) {
 					// 比前面的小，把前面的向后挪一位,只移动前面元素不是交换
 					array[j] = array[j - 1];
 				} else {
-					// 不比前面的小，结束，再往前更小，不可能找到位置
+					// 比前面的大，结束，再往前更小，不可能找到位置
 					break;
 				}
 			}
-			// 把当前值赋给，比较后的j位置
+			// 把当前值赋给，赋给比较后的j位置
 			array[j] = tmp;
 
 		}
